@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <main class="container">
+        <h1>Ajouter une recette</h1>
+
+        {{form_start(form)}}   {# <form> #}
+        {{form_row(form.title)}}
+        {{form_row(form.description)}}
+        {{form_row(form.ingredients)}}
+        {{form_row(form.steps)}}
+        {{form_row(form.image)}}
+        <input type="submit" value="Publier" class="btn btn-primary">
+        {{form_end(form)}}  {# </form> #}
+    </main>
+{% endblock %}
