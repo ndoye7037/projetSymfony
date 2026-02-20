@@ -37,7 +37,7 @@ class Recipe
     #[ORM\Column(type: "text")]
     private string $steps;
     #[ORM\Column(nullable: true)]
-    private string $image;
+    private ?string $image;
 
     public function getId(): int
     {
@@ -90,12 +90,12 @@ class Recipe
         $this->steps = $steps;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage(string $image): void
+    public function setImage(?string $image): void
     {
         $this->image = $image;
     }

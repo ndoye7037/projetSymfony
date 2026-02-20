@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <main class="container">
+        <h1 class="mb-4">Toutes les recettes</h1>
+
+        {% if recipe is empty %}
+            <p>Aucune recette pour le moment </p>
+        {% else %}
+            <div class="row">
+                {% for r in recipe %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ r.title }}</h5>
+                                <p class="card-text">
+                                    {{ r.description|slice(0, 100) }}...
+                                </p>
+
+                                <a href="{{ path('read_recipe', { id: r.id }) }}"
+                                   class="btn btn-primary">
+                                    Voir la recette
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

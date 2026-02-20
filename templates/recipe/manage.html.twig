@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="container">
+        <h1 class="mb-4">Gestion des recettes</h1>
+
+        <a href="{{ path('recipe_create') }}" class="btn btn-success mb-3">
+            Ajouter une nouvelle recette
+        </a>
+
+        {% if recipes is empty %}
+            <p>Aucune recette pour le moment 🍽️</p>
+        {% else %}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for r in recipes %}
+                    <tr>
+                        <td>{{ r.id }}</td>
+                        <td>{{ r.title }}</td>
+                        <td>{{ r.description|slice(0,50) }}...</td>
+                        <td>
+                            <a href="{{ path('read_recipe', {id: r.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('recipe_edit', {id: r.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            <a href="{{ path('delete_recipe', {id: r.id}) }}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Voulez-vous vraiment supprimer cette recette ?');">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <main class="container">
+        <h1>Mes recettes</h1>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            {% for recipe in recipes %}
+                <div
+                    class="card" style="width: 18rem;">
+                    {# <img src="{{post.image}}" class="card-img-top" alt="..."> #}
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe.title}}</h5>
+                        <p class="card-text">{{recipe.content}}</p>
+                        <a href="post/read/{{recipe.id}}" class="btn btn-primary">Lire</a>
+                        <a href="post/edit/{{recipe.id}}" class="btn btn-warning">Modifier</a>
+                        <a href="post/delete/{{recipe.id}}" class="btn btn-danger">Supprimer</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        {{recipe.publishedAt | date("d/m/Y H:i")}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

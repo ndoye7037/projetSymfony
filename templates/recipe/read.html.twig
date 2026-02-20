@@ -1,9 +1,123 @@
 {% extends "base.html.twig" %}
 
-{% block body%}
-    <main>
-        <div>
+{% block body %}
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
 
+                {# Titre de la recette #}
+                <div class="mb-4">
+                    <h1 class="display-4 fw-bold text-primary">{{ recipe.title }}</h1>
+                    <hr class="my-3">
+                </div>
+
+                {# Layout image à gauche + tout le contenu à droite #}
+                <div class="row">
+                    {# Image à gauche #}
+                    <div class="col-md-5">
+                        {% if recipe.image %}
+                            <div class="recipe-image mb-4">
+                                <img
+                                    src="{{ asset('uploads/images/' ~ recipe.image) }}"
+                                    class="img-fluid rounded shadow-lg"
+                                    alt="{{ recipe.title }}"
+                                >
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {# Tout le contenu à droite #}
+                    <div class="col-md-7">
+                        {# Description #}
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-secondary mb-2">
+                                    <i class="bi bi-book"></i> Description
+                                </h5>
+                                <p class="card-text">{{ recipe.description }}</p>
+                            </div>
+                        </div>
+
+                        {# Ingrédients #}
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-secondary mb-2">
+                                    <i class="bi bi-basket"></i> Ingrédients
+                                </h5>
+                                <div class="bg-light p-2 rounded">
+                                    <p class="mb-0 small" style="white-space: pre-line;">{{ recipe.ingredients }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Préparation #}
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-secondary mb-2">
+                                    <i class="bi bi-list-ol"></i> Préparation
+                                </h5>
+                                <div class="steps-content">
+                                    <p style="white-space: pre-line; line-height: 1.6;">{{ recipe.steps }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Boutons d'action #}
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="{{ path('manage_recipe') }}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Retour
+                            </a>
+                            <a href="{{ path('recipe_edit', {id: recipe.id}) }}" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i> Modifier
+                            </a>
+                            <a href="{{ path('delete_recipe', {id: recipe.id}) }}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </main>
+
+    <style>
+        .recipe-image img {
+            transition: transform 0.3s ease;
+            width: 85%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .recipe-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .card {
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+        }
+
+        .steps-content p {
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
 {% endblock %}
