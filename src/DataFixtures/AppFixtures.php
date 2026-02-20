@@ -21,15 +21,25 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
+
         for ($i = 0; $i < 5; $i++) {
-            $user = new User($this->passwordHasher);
-            $user->setEmail($faker->email())->setPassword("password");
+            $user = new User();
+            $user->setEmail($faker->email);
+            $hashedPassword = $this->passwordHasher->hashPassword($user, "password");
+            $user->setPassword($hashedPassword);
+
             $manager->persist($user);
 
             $recipe = new Recipe();
-            $recipe->setTitle($faker->name())->setContent($faker->text())->setPublishedAt($faker->dateTime());
+
+            $recipe->setTitle($faker->sentence(3));
+            $recipe->setDescription($faker->paragraph);
+            $recipe->setIngredients($faker->text);
+            $recipe->setSteps($faker->text);
+
             $manager->persist($recipe);
         }
+
         $manager->flush();
     }
 }
