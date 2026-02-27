@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ class RecipeController extends AbstractController
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         $recipe = new Recipe();
-        $form = $this->createForm(\App\Form\RecipeType::class, $recipe);
+        $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,7 +50,7 @@ class RecipeController extends AbstractController
     #[Route("/recipe/edit/{id}", name: "recipe_edit")]
     public function edit(Request $request, ManagerRegistry $doctrine, Recipe $recipe): Response
     {
-        $form = $this->createForm(\App\Form\RecipeType::class, $recipe);
+        $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
