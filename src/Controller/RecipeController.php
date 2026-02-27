@@ -16,11 +16,10 @@ class RecipeController extends AbstractController
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         $recipe = new Recipe();
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(\App\Form\RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // RÉCUPÉRATION DE L’IMAGE
             $imageFile = $form->get('image')->getData();
 
             if ($imageFile) {
@@ -30,7 +29,6 @@ class RecipeController extends AbstractController
                     $this->getParameter('images_directory'),
                     $newFilename
                 );
-                //ON STOCKE LE NOM DU FICHIER EN BASE
                 $recipe->setImage($newFilename);
             }
 
@@ -52,7 +50,7 @@ class RecipeController extends AbstractController
     #[Route("/recipe/edit/{id}", name: "recipe_edit")]
     public function edit(Request $request, ManagerRegistry $doctrine, Recipe $recipe): Response
     {
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(\App\Form\RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

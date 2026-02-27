@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <main class="container">
+        <h1>Mes catégories</h1>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            {% for category in category %}
+                <div
+                        class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{category.title}}</h5>
+                        <p class="card-text">{{category.content}}</p>
+                        <a href="post/read/{{category.id}}" class="btn btn-primary">Lire</a>
+                        <a href="post/edit/{{category.id}}" class="btn btn-warning">Modifier</a>
+                        <a href="post/delete/{{category.id}}" class="btn btn-danger">Supprimer</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        {{category.publishedAt | date("d/m/Y H:i")}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
